@@ -1,22 +1,21 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './pages/App'
-import reportWebVitals from './reportWebVitals'
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware, compose } from 'redux'
-import createSagaMiddleware from "redux-saga"
-import rootReducers from './redux/reducers'
-import { rootSaga } from "./redux/sagas"
-const sagaMiddleware = createSagaMiddleware()
-const store = createStore(rootReducers, compose(applyMiddleware(sagaMiddleware)))
-sagaMiddleware.run(rootSaga)
+import React from "react";
+import ReactDOM from "react-dom";
+import { createBrowserHistory } from "history";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+
+// core components
+import Admin from "layouts/Admin";
+
+import "assets/css/material-dashboard-react.css?v=1.9.0";
+
+const hist = createBrowserHistory();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
+  <Router history={hist}>
+    <Switch>
+      <Route path="/admin" component={Admin} />
+      <Redirect from="/" to="/admin/dashboard" />
+    </Switch>
+  </Router>,
+  document.getElementById("root")
 );
-
-reportWebVitals();
-
