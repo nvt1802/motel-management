@@ -6,13 +6,13 @@ import BubbleChart from "@material-ui/icons/BubbleChart"
 import LocationOn from "@material-ui/icons/LocationOn"
 import Notifications from "@material-ui/icons/Notifications"
 // core components/views for Admin layout
-import DashboardPage from "views/Dashboard/Dashboard.js"
-import UserProfile from "views/UserProfile/UserProfile.js"
-import TableList from "views/TableList/TableList.js"
-import Typography from "views/Typography/Typography.js"
-import Icons from "views/Icons/Icons.js"
-import Maps from "views/Maps/Maps.js"
-import NotificationsPage from "views/Notifications/Notifications.js"
+import DashboardPage from "views/Admin/Dashboard/Dashboard.js"
+import UserProfile from "views/Admin/UserProfile/UserProfile.js"
+import AccountManagement from "views/Admin/AccountManagement"
+import Typography from "views/Admin/Typography/Typography.js"
+import Icons from "views/Admin/Icons/Icons.js"
+import Maps from "views/Admin/Maps/Maps.js"
+import NotificationsPage from "views/Admin/Notifications/Notifications.js"
 // core components/views for RTL layout
 
 const dashboardRoutes = [
@@ -32,9 +32,9 @@ const dashboardRoutes = [
   },
   {
     path: "/table",
-    name: "Table List",
+    name: "Account Management",
     icon: "content_paste",
-    component: TableList,
+    component: AccountManagement,
     layout: "/admin"
   },
   {

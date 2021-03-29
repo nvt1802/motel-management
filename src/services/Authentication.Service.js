@@ -25,7 +25,7 @@ class AuthenticationService {
         return localStorage.getItem(JWT_AUTH_HEADER)
     }
 
-    registerSuccessFullLogin(username, password, token) {
+    registerSuccessFullLogin(username, token) {
         localStorage.setItem(USER_NAME_SESSION, username)
         this.setupAxiosInterceptors(this.createJwtAuthToken(token))
     }

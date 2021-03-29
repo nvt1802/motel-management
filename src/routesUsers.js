@@ -1,7 +1,7 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard"
 // core components/views for Admin layout
-import DashboardPage from "views/Dashboard/Dashboard.js"
+import DashboardPage from "views/Users/Dashboard/Dashboard.js"
 // core components/views for RTL layout
 
 const dashboardRoutes = [
