@@ -8,11 +8,11 @@ const initialState = {
 
 const authenticate = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.AUTHENTICATE_API_CALL_REQUEST:
+        case actionTypes.AUTHENTICATE_TOKEN_API_CALL_REQUEST:
             return { ...state, fetching: true, data: null, error: null }
-        case actionTypes.AUTHENTICATE_API_CALL_SUCCESS:
+        case actionTypes.AUTHENTICATE_TOKEN_API_CALL_SUCCESS:
             return { ...state, fetching: false, data: action.data }
-        case actionTypes.AUTHENTICATE_API_CALL_FAILURE:
+        case actionTypes.AUTHENTICATE_TOKEN_API_CALL_FAILURE:
             return { ...state, fetching: false, data: null, error: action.error }
         default:
             return state

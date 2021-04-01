@@ -11,6 +11,7 @@ class AuthenticationService {
     }
 
     executeJwtAuthenticateService(username, password) {
+        axios.interceptors.request.handlers = []
         return axios.post(`${API_URL}/authenticate`, {
             username, password
         })

@@ -1,4 +1,4 @@
-export const API_URL =  'http://localhost:8080' //'https://motel-room-api.herokuapp.com' 
+export const API_URL = 'https://motel-room-api.herokuapp.com' //'http://localhost:8080'//
 export const URL_AVATAR = 'https://www.freecodecamp.org/news/content/images/2020/02/Ekran-Resmi-2019-11-18-18.08.13.png'
 export const URL_IMAGE = 'https://motel-room-api.herokuapp.com/api/image'
 export const PAGE_SIZE_DISCOVER = 4

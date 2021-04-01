@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React from "react"
 import { createBrowserHistory } from "history"
 import { Router, Route, Switch, Redirect } from "react-router-dom"
 
@@ -6,47 +6,36 @@ import { Router, Route, Switch, Redirect } from "react-router-dom"
 import Admin from "layouts/Admin"
 import Users from "layouts/Users"
 import Login from './layouts/Login'
-import CheckLogin from './layouts/CheckLogin'
-import auth from './services/Authentication.Service'
-import Services from './services'
 
 import "assets/css/material-dashboard-react.css?v=1.9.0"
+import { connect } from "react-redux"
 
 const hist = createBrowserHistory()
 
-const App = () => {
-  const [role, setRole] = React.useState(null)
-  React.useEffect(() => {
-    Services.account.getAccountFromToken(auth.getJwtAuthToken().substring(7)).then(res => {
-      setRole(res.data?.role)
-    })
-  })
-
-  if (role) {
-    return (
-      <Router history={hist}>
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/login/:token" component={CheckLogin} />
-          <AuthenticatedAdminRoute path="/admin" component={Admin} role={role} />
-          <AuthenticatedUsersRoute path="/users" component={Users} role={role} />
-          {/* <Route path="/admin" component={Admin} /> */}
-          {/* <Route path="/users" component={Users} /> */}
-          <Redirect from="/" to="/login" />
-        </Switch>
-      </Router>
-    )
-  } else {
-    return <Fragment />
-  }
+const App = ({ authenticate }) => {
+  return (
+    <Router history={hist}>
+      <Switch>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/login/:token" component={Login} />
+        <AuthenticatedAdminRoute path="/admin" component={Admin} authenticate={authenticate} />
+        <AuthenticatedUsersRoute path="/users" component={Users} authenticate={authenticate} />
+        <Redirect from="/" to="/login" />
+      </Switch>
+    </Router>
+  )
 }
 
-export default App
+const mapStateToProps = state => ({
+  authenticate: state.authenticate
+})
+
+export default connect(mapStateToProps, null)(App)
 
 function AuthenticatedAdminRoute(props) {
-  if (props?.role === 1) {
+  if (props?.authenticate?.data?.role === 1) {
     return <Route {...props} />
-  } else if (props?.role === 2) {
+  } else if (props?.authenticate?.data?.role === 2) {
     return <Redirect to="/users"></Redirect>
   }
   else {
@@ -55,9 +44,9 @@ function AuthenticatedAdminRoute(props) {
 }
 
 function AuthenticatedUsersRoute(props) {
-  if (props?.role === 2) {
+  if (props?.authenticate?.data?.role === 2) {
     return <Route {...props} />
-  } else if (props?.role === 1) {
+  } else if (props?.authenticate?.data?.role === 1) {
     return <Redirect to="/admin"></Redirect>
   }
   else {

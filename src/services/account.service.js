@@ -2,6 +2,7 @@ import Axios from "axios"
 import { API_URL } from "../common/Constant"
 
 class AccountAPI {
+
     checkUserNameExist(username) {
         return Axios.get(`${API_URL}/api/account/checkAccount/${username}`)
     }
