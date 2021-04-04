@@ -23,7 +23,7 @@ import styles from "assets/jss/material-dashboard-react/components/headerLinksSt
 
 const useStyles = makeStyles(styles);
 
-export default function UsersNavbarLinks() {
+export default function UsersNavbarLinks(props) {
   const classes = useStyles();
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
@@ -46,6 +46,7 @@ export default function UsersNavbarLinks() {
   };
   const handleCloseProfile = () => {
     setOpenProfile(null);
+    props.history?.push('/admin/profile')
   };
   return (
     <div>

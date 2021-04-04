@@ -147,11 +147,11 @@ function UserProfile({ account }) {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    defaultValue={account.gender || 0}
+                    defaultValue={account.gender || '0'}
                     option={[
-                      { label: 'N/A', value: 0 },
-                      { label: 'Nam', value: 1 },
-                      { label: 'Nữ', value: 2 }
+                      { label: 'N/A', value: '0' },
+                      { label: 'Nam', value: '1' },
+                      { label: 'Nữ', value: '2' }
                     ]}
                   />
                 </GridItem>
@@ -164,11 +164,11 @@ function UserProfile({ account }) {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    defaultValue={account.province_id || 0}
-                    options={[
-                      { label: 'N/A', value: 0 },
-                      { label: 'Nam', value: 1 },
-                      { label: 'Nữ', value: 2 }
+                    defaultValue={account.province_id || '0'}
+                    option={[
+                      { label: 'N/A', value: '0' },
+                      { label: 'Nam', value: '1' },
+                      { label: 'Nữ', value: '2' }
                     ]}
                   />
                 </GridItem>
@@ -179,11 +179,11 @@ function UserProfile({ account }) {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    defaultValue={account.district_id || 0}
-                    options={[
-                      { label: 'N/A', value: 0 },
-                      { label: 'Nam', value: 1 },
-                      { label: 'Nữ', value: 2 }
+                    defaultValue={account.district_id || '0'}
+                    option={[
+                      { label: 'N/A', value: '0' },
+                      { label: 'Nam', value: '1' },
+                      { label: 'Nữ', value: '2' }
                     ]}
                   />
                 </GridItem>

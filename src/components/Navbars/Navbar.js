@@ -44,7 +44,7 @@ export default function Header(props) {
           </Button>
         </div>
         <Hidden smDown implementation="css">
-          {props.usersActive ? <UsersNavbarLinks /> : <AdminNavbarLinks />}
+          {props.usersActive ? <UsersNavbarLinks {...props} /> : <AdminNavbarLinks {...props} />}
         </Hidden>
         <Hidden mdUp implementation="css">
           <IconButton
