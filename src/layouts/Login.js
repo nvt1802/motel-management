@@ -120,7 +120,7 @@ const Admin = ({ authenticate, fetchAccountFromToken, history, fetchAccountData 
             autoFocus
             autoComplete="off"
             inputRef={register({
-              required: MESSENGER_ERROR.username
+              required: MESSENGER_ERROR.username_required
             })}
             error={errors.username ? true : false}
           />
@@ -186,7 +186,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://motel-room.web.app/">
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
