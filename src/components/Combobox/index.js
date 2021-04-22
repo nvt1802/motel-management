@@ -24,7 +24,8 @@ export default function CustomInput(props) {
     error,
     success,
     options,
-    defaultValue
+    defaultValue,
+    onChange
   } = props
 
   const marginTop = classNames({
@@ -45,6 +46,7 @@ export default function CustomInput(props) {
         defaultValue={defaultValue}
         getOptionLabel={(option) => option?.label}
         renderInput={(params) => <TextField {...params} label={labelText} variant="standard" />}
+        onChange={onChange}
       />
       {error ? (
         <Clear className={classes.feedback + " " + classes.labelRootError} />
