@@ -1,4 +1,5 @@
-import React from "react"
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react"
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles"
 // core components
@@ -16,6 +17,8 @@ import Combobox from "components/Combobox"
 
 import avatar from "assets/img/faces/marc.jpg"
 import { connect } from "react-redux"
+import { provinceAction } from '../../../redux/actions'
+import services from '../../../services'
 
 const styles = {
   cardCategoryWhite: {
@@ -38,8 +41,65 @@ const styles = {
 
 const useStyles = makeStyles(styles)
 
-function UserProfile({ account }) {
+function UserProfile({ account, province, fetchProvince }) {
   const classes = useStyles()
+  const [provinceOption, setProvinceOption] = useState([])
+  const [provinceDefault, setProvinceDefault] = useState({})
+  const [districtOption, setDistrictOption] = useState([])
+  const [districtDefault, setDistrictDefault] = useState({})
+
+  useEffect(() => {
+    if (!province) {
+      fetchProvince()
+    }
+  }, [fetchProvince, province])
+
+  const renderProvince = (list) => {
+    const rows = list?.map((v) => {
+      if (Number(v.province_id) === account.provinceId) {
+        setProvinceDefault({
+          label: v.province_name,
+          value: Number(v.province_id)
+        })
+      }
+      return {
+        label: v.province_name,
+        value: Number(v.province_id)
+      }
+    })
+    setProvinceOption(rows)
+  }
+
+  const renderDistrict = (list) => {
+    const rows = list?.map((v) => {
+      if (Number(v.district_id) === account.districtId) {
+        setDistrictDefault({
+          label: v.district_name,
+          value: Number(v.district_id)
+        })
+      }
+      return {
+        label: v.district_name,
+        value: Number(v.district_id)
+      }
+    })
+    setDistrictOption(rows)
+  }
+
+  useEffect(() => {
+    if (province && provinceOption?.length === 0) {
+      renderProvince(province)
+    }
+  }, [province, provinceOption, renderProvince])
+
+  useEffect(() => {
+    if (districtOption?.length === 0) {
+      services.district.findDistrictByProvinceId(account?.provinceId).then(res => {
+        renderDistrict(res.data?.results)
+      }).catch(err => { })
+    }
+  }, [account?.provinceId, districtOption, renderDistrict])
+
   return (
     <div>
       <GridContainer>
@@ -89,7 +149,7 @@ function UserProfile({ account }) {
                   />
                 </GridItem>
               </GridContainer>
-              <GridContainer>
+              {/* <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
                     labelText="Password"
@@ -114,7 +174,7 @@ function UserProfile({ account }) {
                     }}
                   />
                 </GridItem>
-              </GridContainer>
+              </GridContainer> */}
               <GridContainer>
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
@@ -147,45 +207,42 @@ function UserProfile({ account }) {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    defaultValue={account.gender || '0'}
+                    defaultValue={account.gender || 0}
                     option={[
-                      { label: 'N/A', value: '0' },
-                      { label: 'Nam', value: '1' },
-                      { label: 'Nữ', value: '2' }
+                      { label: 'N/A', value: 0 },
+                      { label: 'Nam', value: 1 },
+                      { label: 'Nữ', value: 2 }
                     ]}
                   />
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
-                  <Combobox
-                    labelText="Province"
-                    id="province"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    defaultValue={account.province_id || '0'}
-                    option={[
-                      { label: 'N/A', value: '0' },
-                      { label: 'Nam', value: '1' },
-                      { label: 'Nữ', value: '2' }
-                    ]}
-                  />
+                  {provinceOption?.length > 0 &&
+                    <Combobox
+                      labelText="Province"
+                      id="province"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      defaultValue={provinceDefault}
+                      options={provinceOption}
+                      onChange={(event, value) => console.log(value)}
+                    />
+                  }
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
-                  <Combobox
-                    labelText="Dictrict"
-                    id="dictrict"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    defaultValue={account.district_id || '0'}
-                    option={[
-                      { label: 'N/A', value: '0' },
-                      { label: 'Nam', value: '1' },
-                      { label: 'Nữ', value: '2' }
-                    ]}
-                  />
+                  {districtOption?.length > 0 &&
+                    <Combobox
+                      labelText="Dictrict"
+                      id="dictrict"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      defaultValue={districtDefault}
+                      options={districtOption}
+                    />
+                  }
                 </GridItem>
               </GridContainer>
             </CardBody>
@@ -221,7 +278,12 @@ function UserProfile({ account }) {
 }
 
 const mapStateToProps = (state) => ({
-  account: state?.authenticate?.data
+  account: state?.authenticate?.data,
+  province: state?.province?.data
 })
 
-export default connect(mapStateToProps, null)(UserProfile)
+const mapDispatchToProps = (dispatch) => ({
+  fetchProvince: () => { dispatch(provinceAction.initProvince()) }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)
