@@ -40,7 +40,7 @@ export default function AccountCustomTable({ accountManagement, fetchListAccount
     return createData(v?.userName, v?.role, v?.createBy, v?.createAt, "")
   })
 
-  const [dense, setDense] = React.useState(false)
+  const [dense, setDense] = React.useState(true)
 
   const getListAccount = (page, pageSize, asc, sortBy) => {
     fetchListAccount({ page, pageSize, asc, sortBy })
@@ -107,7 +107,7 @@ export default function AccountCustomTable({ accountManagement, fetchListAccount
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={ dense ? 'small' : 'medium'}
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -162,7 +162,7 @@ export default function AccountCustomTable({ accountManagement, fetchListAccount
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[2, 5, 10]}
+          rowsPerPageOptions={[5, 10, 20]}
           component="div"
           count={total}
           rowsPerPage={pageSize}

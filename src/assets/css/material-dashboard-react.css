@@ -243,14 +243,14 @@ footer ul li a:hover {
   font-weight: 300;
   line-height: 1.5em;
   position: fixed;
-  top: 180px;
+  bottom: 50px;
   right: 0;
   width: 64px;
   background: rgba(0, 0, 0, 0.3);
   z-index: 1031;
   border-radius: 8px 0 0 8px;
   text-align: center;
-  top: 120px;
+  right: 0px;
   .badge-primary-background-color: #9c27b0;
 }
 
@@ -454,7 +454,7 @@ footer ul li a:hover {
   -o-transform: translateY(-15%);
   -ms-transform: translateY(-15%);
   transform: translateY(-15%);
-  top: 27px;
+  bottom: 0px;
   opacity: 0;
   transform-origin: 0 0;
   display: none;

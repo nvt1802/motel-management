@@ -44,7 +44,6 @@ export default function Footer(props) {
             &copy; {1900 + new Date().getYear()}{" "}
             <a
               href="https://motel-room.web.app"
-              target="_blank"
               className={classes.a}
             >
               Motel Room

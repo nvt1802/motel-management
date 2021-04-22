@@ -5,7 +5,7 @@ import { accountManagement } from '../../../redux/actions'
 document.title = "Quản lý tài khoản"
 function AccountManagement({ accountManagement, fetchListAccount }) {
   const [loading, setLoading] = useState(true)
-  const [pageSize, setPageSize] = useState(2)
+  const [pageSize, setPageSize] = useState(5)
 
   useEffect(() => {
     if (loading) {
